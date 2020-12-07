@@ -80,7 +80,7 @@ def send_email(giver: Person, receiver: Person) -> None:
     with smtplib.SMTP_SSL("smtp.gmail.com") as server:
         server.login(config.GMAIL_EMAIL, config.GMAIL_PW)
         server.sendmail(
-            config.GMAIL_EMAIL, config.GMAIL_EMAIL, message.as_string()
+            config.GMAIL_EMAIL, giver.email_address, message.as_string()
         )
 
 def gen_matches(df: pd.DataFrame) -> Generator[Tuple[Person, Person], None, None]:
