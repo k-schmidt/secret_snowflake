@@ -4,12 +4,10 @@ from email.header import Header
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import pandas as pd
-import pprint
 import smtplib
 import ssl
 
 from configs import config
-pp = pprint.PrettyPrinter(indent=4)
 
 Person = namedtuple('Person', ['name', 'email_address', 'mailing_address', 'gift_ideas'])
 
@@ -41,7 +39,7 @@ msg_html = """
 
 """
 
-def send_email(giver, receiver):
+def send_email(giver: Person, receiver: Person):
     message = MIMEMultipart("alternative")
     message["Subject"] = Header(u"❄ Section D Secret Snowflake Match ❄", "utf-8")
     message["From"] = config.GMAIL_EMAIL
@@ -74,7 +72,7 @@ def send_email(giver, receiver):
             config.GMAIL_EMAIL, config.GMAIL_EMAIL, message.as_string()
         )
 
-def gen_matches(df):
+def gen_matches(df: pd.DataFrame):
     already_matched = set()
     for email in df['email_address']:
         match_email = None
@@ -97,9 +95,12 @@ def gen_matches(df):
 
         yield (giving_person, receiving_person)
 
-def main(responses_path):
-    """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
+def main(responses_path: str):
+    """
+    Generates random matches from a tsv file
+
+    responses_path: Path to input tsv
+
     """
     df = pd.read_csv(
         responses_path,
@@ -108,21 +109,7 @@ def main(responses_path):
         skiprows=1,
     )
     df = df.drop_duplicates(subset='email_address', keep='first', ignore_index=True)
-    # matches = gen_matches(df)
-    gp = Person(
-        'kyle',
-        'kyle.a.schmidt@gmail.com',
-        '123 spruce st',
-        '2 turtle doves'
-    )
-    rp = Person(
-        'kyle',
-        'kyle.a.schmidt@gmail.com',
-        '123 spruce st',
-        '2 turtle doves'
-    )
-    matches = [(gp, rp)]
-
+    matches = gen_matches(df)
     for giver, receiver in matches:
         send_email(giver, receiver)
 
