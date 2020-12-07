@@ -1,0 +1,4 @@
+venv*
+configs/*
+data/responses.tsv
+*__pycache__*
