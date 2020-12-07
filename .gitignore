@@ -2,3 +2,4 @@ venv*
 configs/*
 data/responses.tsv
 *__pycache__*
+.mypy_cache*
