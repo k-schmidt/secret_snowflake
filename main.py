@@ -21,6 +21,9 @@ Your match is: {match_name}
 Their email is: {match_email}
 Their mailing address is: {match_mailing_address}
 Their gift ideas: {match_gift_ideas}
+
+
+https://github.com/k-schmidt/secret_snowflake
 """
 
 msg_html = """
@@ -37,6 +40,7 @@ msg_html = """
     <i>Their gift ideas: {match_gift_ideas} </i><br>
     </p>
 
+    <p style="font-size:70%;">https://github.com/k-schmidt/secret_snowflake</p>
 """
 
 def send_email(giver: Person, receiver: Person):
