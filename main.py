@@ -120,9 +120,9 @@ def gen_matches(df: pd.DataFrame) -> Generator[Tuple[Person, Person], None, None
 
 def main(responses_path: str) -> None:
     """
-    Generates random matches from a tsv file
+    Generates random matches from a csv file
 
-    responses_path: Path to input tsv
+    responses_path: Path to input csv
 
     """
     df = pd.read_csv(

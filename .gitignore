@@ -3,3 +3,4 @@ configs/*
 data/responses.tsv
 *__pycache__*
 .mypy_cache*
+data/*.csv
