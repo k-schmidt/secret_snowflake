@@ -31,7 +31,7 @@ MSG_HTML = """
 <html>
   <body>
     <h2 style="color:DodgerBlue;"><i>Happy Holidays {name}!</i></h2>
-    <p><i>Joyce and I wish you a wonderful holiday season and a happy New Year!<br>
+    <p><i>Joyce and I hope you have a wonderful holiday season!<br>
     Without further ado, please see your secret snowflake match below.</i></p>
 
     <p>
@@ -114,6 +114,7 @@ def gen_matches(df: pd.DataFrame) -> Generator[Tuple[Person, Person], None, None
             gift_ideas=df.loc[df['email_address'] == email]['gift_ideas'].iloc[0],
         )
         already_matched.add(match_email)
+        print(giving_person.name, receiving_person.name)
 
         yield (giving_person, receiving_person)
 
@@ -126,14 +127,19 @@ def main(responses_path: str) -> None:
     """
     df = pd.read_csv(
         responses_path,
-        sep='\t',
-        names=['timestamp', 'email_address', 'name', 'mailing_address', 'gift_ideas',],
+        sep=',',
+        names=['timestamp', 'email_address', 'name', 'mailing_address', 'gift_ideas', 'exclusion_name'],
         skiprows=1,
     )
     df = df.drop_duplicates(subset='email_address', keep='first', ignore_index=True)
-    matches = gen_matches(df)
-    for giver, receiver in matches:
-        send_email(giver, receiver)
+    matches = list(gen_matches(df))
+    should_execute = input("Should I execute these matches? Yes or No?\n").strip().lower()
+    if should_execute == "yes":
+        for giver, receiver in matches:
+            print(giver.email_address, receiver.email_address)
+            send_email(giver, receiver)
+    else:
+        print("Ok, aborting")
 
 
 if __name__ == '__main__':
