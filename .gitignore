@@ -1,6 +1,9 @@
 venv*
 configs/*
+!configs/config.py
 data/responses.tsv
 *__pycache__*
 .mypy_cache*
 data/*.csv
+.env
+secret_snowflake.log
