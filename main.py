@@ -91,7 +91,7 @@ MSG_TXT = """
 Happy Holidays {name}!
 
 Joyce and I wish you a wonderful holiday season and a happy New Year!
-Without further ado, please see your secret snowflake match below.
+Please see your secret santa match below.
 
 Your match is: {match_name}
 Their email is: {match_email}
@@ -107,7 +107,7 @@ MSG_HTML = """
   <body>
     <h2 style="color:DodgerBlue;"><i>Happy Holidays {name}!</i></h2>
     <p><i>Joyce and I hope you have a wonderful holiday season!<br>
-    Without further ado, please see your secret snowflake match below.</i></p>
+    Please see your secret santa match below.</i></p>
 
     <p>
     <i>Your match: {match_name} </i><br>
@@ -132,7 +132,7 @@ def send_email(giver: Person, receiver: Person) -> bool:
     """
     try:
         message = MIMEMultipart("alternative")
-        message["Subject"] = Header(u"❄ Section D Secret Snowflake Match ❄", "utf-8")
+        message["Subject"] = Header(u"❄ Family Secret Santa Match ❄", "utf-8")
         message["From"] = config.GMAIL_EMAIL
         message["To"] = giver.email_address
         part1 = MIMEText(
@@ -203,9 +203,14 @@ def gen_matches(
     no_match_set = set(config.NO_MATCH_LIST)
 
     already_matched = set()
+    already_gave = set()  # Track who has already given a gift
     all_emails = df['email_address'].tolist()
 
     for email in all_emails:
+        # Skip if this person has already given a gift
+        if email in already_gave:
+            continue
+
         # Find available match candidates
         available_matches = [
             m for m in all_emails
@@ -246,6 +251,7 @@ def gen_matches(
             gift_ideas=giving_person_df['gift_ideas'].iloc[0],
         )
         already_matched.add(match_email)
+        already_gave.add(email)  # Mark this person as having given
         print(giving_person.name, receiving_person.name)
 
         yield (giving_person, receiving_person)
@@ -319,6 +325,15 @@ def main(responses_path: str) -> None:
         logging.info("Generating matches...")
         matches = list(gen_matches(df, random_seed=random_seed))
         logging.info(f"Successfully generated {len(matches)} matches")
+
+        # Validate that we have exactly one match per participant
+        if len(matches) != len(df):
+            error_msg = (
+                f"Match validation failed: expected {len(df)} matches "
+                f"but generated {len(matches)}"
+            )
+            logging.error(error_msg)
+            raise RuntimeError(error_msg)
     except RuntimeError as e:
         logging.error(f"Failed to generate matches: {e}")
         sys.exit(1)
