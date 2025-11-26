@@ -1,37 +1,9 @@
-astroid==2.4.2
-cachetools==4.1.1
-certifi==2020.12.5
-chardet==3.0.4
-google-api-core==1.23.0
-google-api-python-client==1.12.8
-google-auth==1.23.0
-google-auth-httplib2==0.0.4
-google-auth-oauthlib==0.4.2
-googleapis-common-protos==1.52.0
-httplib2==0.18.1
-idna==2.10
-isort==5.6.4
-lazy-object-proxy==1.4.3
-mccabe==0.6.1
-mypy==0.790
-mypy-extensions==0.4.3
-numpy==1.19.4
-oauthlib==3.1.0
-pandas==1.1.4
-protobuf==3.14.0
-pyasn1==0.4.8
-pyasn1-modules==0.2.8
-pylint==2.6.0
-python-dateutil==2.8.1
-python-dotenv==1.0.0
-pytz==2020.4
-requests==2.25.0
-requests-oauthlib==1.3.0
-rsa==4.6
-six==1.15.0
-toml==0.10.2
-typed-ast==1.4.1
-typing-extensions==3.7.4.3
-uritemplate==3.0.1
-urllib3==1.26.2
-wrapt==1.12.1
+Bottleneck @ file:///Users/cbousseau/work/recipes/ci_py311/bottleneck_1677925122241/work
+numexpr @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_45yefq0kt6/croot/numexpr_1696515289183/work
+numpy @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_362zs5g963/croot/numpy_and_numpy_base_1695830450707/work/dist/numpy-1.26.0-cp311-cp311-macosx_11_0_arm64.whl#sha256=35f9bcbdc8071f8981937b450fba07496cbb1e0d2a724e1d0619e6e714b42590
+pandas @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_63jsm9vzq9/croot/pandas_1697477169306/work/dist/pandas-2.1.1-cp311-cp311-macosx_11_0_arm64.whl#sha256=2c5b71e294c58599b5b786e6dd80091363caf3925fe438bebe3ee9548b7e69f3
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+python-dotenv==1.2.1
+pytz @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_6btwyyj8a1/croot/pytz_1695131592184/work
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+tzdata @ file:///croot/python-tzdata_1690578112552/work
