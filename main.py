@@ -132,7 +132,7 @@ def send_email(giver: Person, receiver: Person) -> bool:
     """
     try:
         message = MIMEMultipart("alternative")
-        message["Subject"] = Header(u"❄ Family Secret Santa Match ❄", "utf-8")
+        message["Subject"] = Header(u"❄ Schmidt+ Secret Santa Match ❄", "utf-8")
         message["From"] = config.GMAIL_EMAIL
         message["To"] = giver.email_address
         part1 = MIMEText(
