@@ -132,7 +132,7 @@ def send_email(giver: Person, receiver: Person) -> bool:
     """
     try:
         message = MIMEMultipart("alternative")
-        message["Subject"] = Header(u"❄ Schmidt+ Secret Santa Match ❄", "utf-8")
+        message["Subject"] = Header(u"❄ Secret Santa Match ❄", "utf-8")
         message["From"] = config.GMAIL_EMAIL
         message["To"] = giver.email_address
         part1 = MIMEText(
@@ -287,7 +287,7 @@ def main(responses_path: str) -> None:
         logging.info(f"Reading participant data from: {responses_path}")
         df = pd.read_csv(
             responses_path,
-            names=['timestamp', 'email_address', 'name', 'mailing_address', 'gift_ideas'],
+            names=['timestamp', 'email_address', 'name', 'mailing_address', 'gift_ideas', 'optional_no_match'],
             skiprows=1,
         )
     except FileNotFoundError:
